@@ -1,0 +1,26 @@
+variables:
+  PROJECT_NAME: "python-ad"
+  PROJECT_REPO: "git@gitlab01.xxx.ru:repo1/python-ad.git"
+
+before_script:
+  - echo "Start"
+
+after_script:
+  - echo "Finish"
+
+build1:
+  stage: build
+  script:
+    - bash ./build.sh $PROJECT_NAME $PROJECT_REPO
+
+test1:
+  stage: test
+  script:
+    - cd ~/$PROJECT_NAME
+    - test -f ./app.py
+
+deploy1:
+  stage: deploy
+  script:
+    - docker stop $PROJECT_NAME && docker rm $PROJECT_NAME
+    - docker run --name $PROJECT_NAME -p 5000:8080 -d $PROJECT_NAME

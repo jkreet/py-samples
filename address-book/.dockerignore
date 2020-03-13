@@ -1,0 +1,5 @@
+.gitlab-ci.yml
+.idea
+build.sh
+test.sh
+deploy.sh
